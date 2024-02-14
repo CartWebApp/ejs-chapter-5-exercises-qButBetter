@@ -1,18 +1,24 @@
 require('./includes/scripts.js') // include the scripts used by the chapter
 
 // EJS Functions 
+function characterCount(script) {
+  return script.ranges.reduce((count, [from, to]) => {
+    return count + (to - from);
+  }, 0);
+}
+
 function textScripts(text) {
   let scripts = countBy(text, char => {
     let script = characterScript(char.codePointAt(0));
     return script ? script.name : "none";
-  }).filter(({name}) => name != "none");
+  }).filter(({ name }) => name != "none");
 
-  let total = scripts.reduce((n, {count}) => n + count, 0);
+  let total = scripts.reduce((n, { count }) => n + count, 0);
   if (total == 0) return "No scripts found";
 
-  return scripts.map(({name, count}) => {
-    return `${Math.round(count * 100 / total)}% ${name}`;
-  }).join(", ");
+  return scripts.map(({ name, count }) => {
+    return `${name}`;
+  });
 }
 
 function countBy(items, groupName) {
@@ -21,7 +27,7 @@ function countBy(items, groupName) {
     let name = groupName(item);
     let known = counts.findIndex(c => c.name == name);
     if (known == -1) {
-      counts.push({name, count: 1});
+      counts.push({ name, count: 1 });
     } else {
       counts[known].count++;
     }
@@ -47,18 +53,32 @@ function dominantDirection(textInput) {
 
   let temp = textScripts(textInput);
 
-  return(temp);
+  let countTtb = 0;
+  let countLtr = 0;
+  let countRtl = 0;
 
-  // Finds direction from most used scripture & returns it
-  // if (highestPerc.direction === "ltr") {
-  //   return ("ltr");
-  // }
-  // else if (highestPerc.direction === "rtl") {
-  //   return ("rtl");
-  // }
-  // else if (highestPerc.direction === "ttb") {
-  //   return ("ttb")
-  // }
+  for (i = 0; i < temp.length; i++) {
+    if (temp[i].direction == "ttb") {
+      countTtb++;
+    }
+    else if (temp[i].direction == "ltr") {
+      countLtr++;
+    }
+    else if (temp[i].direction == "rtl"){
+      countRtl++;
+    }
+  }
+
+  if (countLtr > countTtb && countLtr > countRtl) {
+    return ("ltr");
+  }
+  else if (countRtl > countTtb && countRtl > countLtr) {
+    return ("rtl");
+  }
+  else if (countTtb > countRtl && countTtb > countLtr){
+    return ("ttb");
+  }
+
 }
 
 console.log(dominantDirection("Hello!"));

@@ -9,12 +9,9 @@ function every(array, test) {
 }
 
 function someEvery(inputArray, test) {
-  if (inputArray.some(test) === true) {
-    return (true);
-  }
-  else {
-    return (false);
-  }
+
+  return !inputArray.some(element => !test(element))
+
 }
 
 console.log(every([1, 3, 5], n => n < 10));

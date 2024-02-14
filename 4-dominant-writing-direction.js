@@ -49,22 +49,23 @@ function characterScript(code) {
 // Own Function
 function dominantDirection(textInput) {
   // Use this to find the most used scripture
-  let highestPerc = null;
 
   let temp = textScripts(textInput);
+  console.log(temp);
+  console.log(SCRIPTS[temp[0]]);
 
   let countTtb = 0;
   let countLtr = 0;
   let countRtl = 0;
 
   for (i = 0; i < temp.length; i++) {
-    if (temp[i].direction == "ttb") {
+    if (SCRIPTS[temp[i].direction] === "ttb") {
       countTtb++;
     }
-    else if (temp[i].direction == "ltr") {
+    else if (SCRIPTS[temp[i].direction] === "ltr") {
       countLtr++;
     }
-    else if (temp[i].direction == "rtl"){
+    else if (SCRIPTS[temp[i].direction] === "rtl") {
       countRtl++;
     }
   }
@@ -75,13 +76,13 @@ function dominantDirection(textInput) {
   else if (countRtl > countTtb && countRtl > countLtr) {
     return ("rtl");
   }
-  else if (countTtb > countRtl && countTtb > countLtr){
+  else if (countTtb > countRtl && countTtb > countLtr) {
     return ("ttb");
   }
 
 }
 
-console.log(dominantDirection("Hello!"));
-// → ltr
 console.log(dominantDirection("Hey, مساء الخير"));
 // → rtl
+console.log(dominantDirection("Hello!"));
+// → ltr

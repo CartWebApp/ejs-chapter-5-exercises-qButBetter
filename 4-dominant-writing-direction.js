@@ -70,8 +70,8 @@ function dominantDirection(textInput) {
     }
   }
 
-  let langName = SCRIPTS.filter(s => s.name == highestLang)//.direction;
-  return(langName);
+  let langName = SCRIPTS.filter(s => s.name == highestLang);
+  return (langName.direction);
 
   // Returns the direction of the most used scripture
 

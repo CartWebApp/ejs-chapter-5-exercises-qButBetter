@@ -4,14 +4,11 @@ function every(array, test) {
       return (false);
     }
   }
-
   return (true);
 }
 
 function someEvery(inputArray, test) {
-
-  return !inputArray.some(element => !test(element))
-
+  return !inputArray.some(element => !test(element));
 }
 
 console.log(every([1, 3, 5], n => n < 10));

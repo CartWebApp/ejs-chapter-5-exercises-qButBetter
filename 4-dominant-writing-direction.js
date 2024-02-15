@@ -17,7 +17,10 @@ function textScripts(text) {
   if (total == 0) return "No scripts found";
 
   return scripts.map(({ name, count }) => {
-    return `${name}`;
+    let temp = [];
+    temp.push(`${Math.round(count * 100 / total)}%`);
+    temp.push(`${name}`);
+    return temp;
   });
 }
 
@@ -48,37 +51,26 @@ function characterScript(code) {
 
 // Own Function
 function dominantDirection(textInput) {
-  // Use this to find the most used scripture
+  // Gives the used scriptures in the passed argument
+  let usedScriptures = null;
+  usedScriptures = (textScripts(textInput));
+  console.log(usedScriptures);
 
-  let temp = textScripts(textInput);
-  console.log(temp);
-  console.log(SCRIPTS[temp[0]]);
-
-  let countTtb = 0;
-  let countLtr = 0;
-  let countRtl = 0;
-
-  for (i = 0; i < temp.length; i++) {
-    if (SCRIPTS[temp[i].direction] === "ttb") {
-      countTtb++;
-    }
-    else if (SCRIPTS[temp[i].direction] === "ltr") {
-      countLtr++;
-    }
-    else if (SCRIPTS[temp[i].direction] === "rtl") {
-      countRtl++;
+  let highestPerc = null;
+  let highestLang = null;
+  // Find most used scripture in the text
+  // Then find the direction of the most used scripture
+  for (i = 0; i < usedScriptures.length; i++) {
+    // Sees if percentange of current one is less than next one
+    if (usedScriptures[i][0] < usedScriptures[i + 1][0]) {
+      highestPerc = usedScriptures[i + 1][0];
+      highestLang = usedScriptures[i + 1][1];
+      console.log(highestPerc);
+      console.log(highestLang);
     }
   }
 
-  if (countLtr > countTtb && countLtr > countRtl) {
-    return ("ltr");
-  }
-  else if (countRtl > countTtb && countRtl > countLtr) {
-    return ("rtl");
-  }
-  else if (countTtb > countRtl && countTtb > countLtr) {
-    return ("ttb");
-  }
+  return (SCRIPTS.highestLang[direction]);
 
 }
 

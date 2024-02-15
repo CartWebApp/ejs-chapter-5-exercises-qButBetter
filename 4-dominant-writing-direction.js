@@ -62,7 +62,7 @@ function dominantDirection(textInput) {
   // Then find the direction of the most used scripture
   for (i = 0; i < usedScriptures.length; i++) {
     // Sees if percentange of current one is less than next one
-    if (usedScriptures[i][0] < usedScriptures[i + 1][0]) {
+    if (usedScriptures[i + 1] != null && usedScriptures[i][0] < usedScriptures[i + 1][0]) {
       highestPerc = usedScriptures[i + 1][0];
       highestLang = usedScriptures[i + 1][1];
       console.log(highestPerc);
@@ -70,7 +70,10 @@ function dominantDirection(textInput) {
     }
   }
 
-  return (SCRIPTS.highestLang[direction]);
+  let langName = SCRIPTS.filter(s => s.name == highestLang)//.direction;
+  return(langName);
+
+  // Returns the direction of the most used scripture
 
 }
 

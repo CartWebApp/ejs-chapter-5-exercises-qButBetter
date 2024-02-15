@@ -54,7 +54,6 @@ function dominantDirection(textInput) {
   // Gives the used scriptures in the passed argument
   let usedScriptures = null;
   usedScriptures = (textScripts(textInput));
-  console.log(usedScriptures);
 
   let highestPerc = null;
   let highestLang = null;
@@ -65,16 +64,17 @@ function dominantDirection(textInput) {
     if (usedScriptures[i + 1] != null && usedScriptures[i][0] < usedScriptures[i + 1][0]) {
       highestPerc = usedScriptures[i + 1][0];
       highestLang = usedScriptures[i + 1][1];
-      console.log(highestPerc);
-      console.log(highestLang);
+    }
+    else {
+      highestPerc = usedScriptures[i][0];
+      highestLang = usedScriptures[i][1];
     }
   }
 
   let langName = SCRIPTS.filter(s => s.name == highestLang);
-  return (langName.direction);
 
   // Returns the direction of the most used scripture
-
+  return (langName[0].direction);
 }
 
 console.log(dominantDirection("Hey, مساء الخير"));
